@@ -1,0 +1,1 @@
+# gnome3-shell-extension-cpufreq
