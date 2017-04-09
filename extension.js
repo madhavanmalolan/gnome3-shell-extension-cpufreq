@@ -5,7 +5,7 @@ const Lang = imports.lang;
 const Mainloop = imports.mainloop;
 const Clutter = imports.gi.Clutter;
 const PanelMenu = imports.ui.panelMenu;
-
+const Util = imports.misc.util;
 const GObject = imports.gi.GObject;
 const GLib = imports.gi.GLib;
 const Gtk = imports.gi.Gtk;
@@ -71,6 +71,12 @@ _checkUpdatesRead: function() {
 			   [out, size] = this._updateProcess_stream.read_line_utf8(null);
 			   this.buttonText.set_text(out);
 			   this._updateProcess_sourceId = null;
+		this._updateProcess_stream.close(null);
+		this._updateProcess_stream = null;
+		GLib.source_remove(this._updateProcess_sourceId);
+		this._updateProcess_sourceId = null;
+this._updateProcess_pid = null;
+			   Util.spawnCommandLine( "kill " + this._updateProcess_pid );
 		   },
 
 
